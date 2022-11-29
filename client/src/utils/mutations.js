@@ -30,6 +30,12 @@ mutation addBook($bookId: ID!, $authors: [String]!, $title: String!, $descriptio
       username
       savedBooks {
         title
+        _id
+        authors
+        description
+        bookId
+        image
+        link
       }
     }
   }

@@ -19,29 +19,29 @@ const SearchBooks = () => {
   const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
 
   //Add Book Mutation
-  const [addBook, {error}] = useMutation(ADD_BOOK);
-    // , {
-  //   update(cache, {data: {addBook}}){
+  const [addBook, {error}] = useMutation(ADD_BOOK, {
+    update(cache, {data: {addBook}}){
 
-  //       try {
-  //         const { getSingleUser } = cache.readQuery({query: GET_ME});
-  //       console.log(getSingleUser);
-  //       cache.writeQuery({
-  //         query: GET_ME,
-  //         data: {getSingleUser: {...getSingleUser, savedBooks:[...getSingleUser.savedBooks, addBook]}},
-  //       });
-  //       } catch (error) {
-  //         console.log(error);
-  //       }
+        try {
+          const { getSingleUser } = cache.readQuery({query: GET_ME});
+        console.log(getSingleUser);
+        console.log(addBook);
+        cache.writeQuery({
+          query: GET_ME,
+          data: {getSingleUser: {...getSingleUser, savedBooks: addBook.savedBooks}},
+        });
+        } catch (error) {
+          console.log(error);
+        }
       
 
-  //     // const {savedBooks } = cache.readQuery({GET_ME});
-  //     // cache.writeQuery({
-  //     //   query: GET_ME,
-  //     //   data: {savedBooks: [addBook, ...savedBooks]},
-  //     // });
-  //   }
-  // });
+      // const {savedBooks } = cache.readQuery({GET_ME});
+      // cache.writeQuery({
+      //   query: GET_ME,
+      //   data: {savedBooks: [addBook, ...savedBooks]},
+      // });
+    }
+  });
 
   // set up useEffect hook to save `savedBookIds` list to localStorage on component unmount
   // learn more here: https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
