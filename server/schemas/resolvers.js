@@ -7,8 +7,8 @@ const resolvers = {
         getSingleUser: async (parent,args,context) => {
             if (context.user) {
                 const userData = await User.findOne({_id: context.user._id})
-                .select('-__v -password')
-                .populate('savedBooks');
+                
+                
                 return userData
             }
             throw new AuthenticationError('Not Logged In!');
@@ -38,6 +38,28 @@ const resolvers = {
             const token = signToken(user);
             return {token, user};
             
+        },
+        addBook: async (parent, args, context) => {
+            if (context.user) {
+                const updatedUser = await User.findOneAndUpdate(
+                    {_id: context.user._id},
+                    { $addToSet: {savedBooks: args}},
+                    {new: true}
+                );
+                return updatedUser;
+            }
+            throw new AuthenticationError('Not Logged In!');
+        },
+        deleteBook: async (parent,args,context) => {
+            if (context.user) {
+                const updatedUser = await User.findOneAndUpdate(
+                    {_id: context.user._id},
+                    { $pull: {savedBooks: args}},
+                    {new: true}
+                );
+                return updatedUser;
+            }
+            throw new AuthenticationError('Not Logged In!');
         }
     }
 }
