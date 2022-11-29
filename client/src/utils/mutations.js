@@ -47,6 +47,12 @@ mutation delete($bookId: ID!) {
       username
       savedBooks {
         title
+        _id
+        authors
+        description
+        bookId
+        image
+        link
       }
     }
   }
