@@ -25,6 +25,19 @@ const resolvers = {
             console.log(user.username);
             console.log(token);
             return {token, user};
+        },
+        login: async (parent, {email,password}) => {
+            const user = await User.findOne({email});
+            if (!user) {
+                throw new AuthenticationError('User not found!');
+            }
+            const correctPassword = await user.isCorrectPassword(password);
+            if (!correctPassword) {
+                throw new AuthenticationError('Password Invalid');
+            }
+            const token = signToken(user);
+            return {token, user};
+            
         }
     }
 }
