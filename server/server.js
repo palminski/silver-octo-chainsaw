@@ -27,10 +27,10 @@ const startApolloServer = async (typeDefs,resolvers) => {
   //integrate server with express app as middleware
   server.applyMiddleware({app});
   if (process.env.NODE_ENV === 'production') {
-    app.unsubscribe(express.static(path.join(__dirname, '../client/build')));
+    app.use(express.static(path.join(__dirname, '../client/build')));
   }
 
-  app.get('/',(req,res) => {
+  app.get('*',(req,res) => {
     res.sendFile(path.join(__dirname, '../client/build/index.html'));
   });
 
