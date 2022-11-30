@@ -18,7 +18,7 @@ const LoginForm = () => {
   };
 
    //Login mutation
-   const [loginUser, {error}] = useMutation(LOGIN_USER);
+   const [loginUser] = useMutation(LOGIN_USER);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();

@@ -19,7 +19,7 @@ const SearchBooks = () => {
   const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
 
   //Add Book Mutation
-  const [addBook, {error}] = useMutation(ADD_BOOK, {
+  const [addBook] = useMutation(ADD_BOOK, {
     update(cache, {data: {addBook}}){
 
         try {
@@ -33,13 +33,7 @@ const SearchBooks = () => {
         } catch (error) {
           console.log(error);
         }
-      
 
-      // const {savedBooks } = cache.readQuery({GET_ME});
-      // cache.writeQuery({
-      //   query: GET_ME,
-      //   data: {savedBooks: [addBook, ...savedBooks]},
-      // });
     }
   });
 
